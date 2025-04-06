@@ -53,3 +53,62 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     background-color: #e6e6e6;
 }
+
+/* Appointments */
+
+.appointments-section {
+    width: 70%;
+    margin: 0 auto 40px auto;
+}
+  
+.appointments-section h3 {
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    text-align: left;
+}
+  
+.appointment-card {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 15px;
+    margin-bottom: 15px;
+}
+  
+.appointment-card img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+  
+.appointment-details {
+    flex-grow: 1;
+}
+  
+.appointment-title {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 4px;
+}
+  
+.appointment-desc {
+    color: #666;
+    font-size: 0.95em;
+}
+  
+.appointment-actions button {
+    padding: 8px 12px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+  
+.appointment-actions button:hover {
+    background-color: #45a049;
+}

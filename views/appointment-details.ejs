@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Appointment Details</title>
+  <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+  <div class="login-container">
+    <h2>Appointment Details</h2>
+    <img src="<%= appointment.imageUrl %>" alt="Patient Image" style="border-radius: 50%; width: 80px; height: 80px; margin-bottom: 15px;"/>
+    
+    <p><strong>Patient:</strong> <%= appointment.patientName %></p>
+    <p><strong>Time:</strong> <%= appointment.time %></p>
+    <p><strong>Doctor:</strong> <%= appointment.doctorName %></p>
+    <p><strong>Reason:</strong> <%= appointment.reason %></p>
+
+    <a href="/admin-dashboard"><button>Back</button></a>
+  </div>
+</body>
+</html>

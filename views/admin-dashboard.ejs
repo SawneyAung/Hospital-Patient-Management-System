@@ -24,6 +24,28 @@
     </section>
 
     <!-- Upcoming Appointments -->
-    
+    <div class="appointments-section">
+        <h3>Upcoming Appointments</h3>
+      
+        <% appointments.forEach(appointment => { %>
+            <div class="appointment-card">
+                <img src="<%= appointment.imageUrl %>" alt="Patient Image" />
+                <div class="appointment-details">
+                    <div class="appointment-title">
+                        <%= appointment.patientName %> - <%= appointment.time %>
+                    </div>
+                    <div class="appointment-desc">
+                        <%= appointment.doctorName %> &middot; <%= appointment.reason %>
+                    </div>
+                </div>
+                <div class="appointment-actions">
+                    <a href="/appointments/<%= appointment.id %>">
+                        <button>View</button>
+                    </a> 
+                </div>
+            </div>
+        <% }) %>
+    </div>
+      
 </body>
 </html>
