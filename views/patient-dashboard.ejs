@@ -1,72 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Patient Dashboard</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <title>Patient Records</title>
+  <link rel="stylesheet" href="/styles/dashboard.css">
 </head>
 <body>
 
-  <!-- Top Menu -->
-  <div class="navbar">
-    <button>Dashboard</button>
-    <button>Patient Records</button>
-    <button>Appointments</button>
-    <button>Register Patient</button>
-    <button>Medical History</button>
-    <button>Billing</button>
-    <button>Settings</button>
-  </div>
-
-  <!-- Main Content -->
-  <div class="container">
+  <!-- Patient Records Section -->
+  <section class="patient-records">
     <h2>Patient Records</h2>
-    <div class="patient-info">
-      <img src="#" alt="Patient Icon" />
-      <div class="patient-info-details">
-        <strong>Patient Name</strong>
-        <div>D.O.B</div>
-        <div>Contact Number</div>
-        <div>Address</div>
-        <div>Medical ID</div>
-        <button class="add-btn">Add Patient</button>
+    <div class="patient-details">
+      <div class="patient-info">
+        <h3>Patient Name</h3>
+        <p>D.O.B</p>
+        <p>Contact Number</p>
+        <p>Address</p>
+        <p>Medical ID</p>
+        <a href="/view-patient">
+          <button class="view-patient-btn">view Patient</button>
+        </a>
       </div>
     </div>
 
-    <div class="registered-section">
-      <h3>Registered Patients →</h3>
-
-      <div class="registered-patient">
-        <img src="#" alt="Patient 1" />
-        <div class="registered-details">
+    <h3>Registered Patients →</h3>
+    <div class="registered-patients">
+      <div class="patient-card">
+        <div>
           <strong>Patient 1</strong>
-          <div>Description</div>
+          <p>Description</p>
           <small>Today • Last Appointment</small>
         </div>
-        <span class="arrow">▶</span>
+        <a href="/add-patient/1">
+          <button class="add-btn">Add</button>
+        </a>
       </div>
 
-      <div class="registered-patient">
-        <img src="#" alt="Patient 2" />
-        <div class="registered-details">
+      <div class="patient-card">
+        <div>
           <strong>Patient 2</strong>
-          <div>Description</div>
+          <p>Description</p>
           <small>Today • Last Appointment</small>
         </div>
-        <span class="arrow">▶</span>
+        <a href="/add-patient/2">
+          <button class="add-btn">Add</button>
+        </a>
       </div>
 
-      <div class="registered-patient">
-        <img src="#" alt="Patient 3" />
-        <div class="registered-details">
+      <div class="patient-card">
+        <div>
           <strong>Patient 3</strong>
-          <div>Description</div>
+          <p>Description</p>
           <small>Today • Last Appointment</small>
         </div>
-        <span class="arrow">▶</span>
+        <a href="/add-patient/3">
+          <button class="add-btn">Add</button>
+        </a>
       </div>
     </div>
-  </div>
+  </section>
 
 </body>
 </html>
+
+
