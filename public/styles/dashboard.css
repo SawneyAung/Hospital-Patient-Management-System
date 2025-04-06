@@ -1,0 +1,55 @@
+/* Admin Dashboard */
+
+/* Nav Bar */
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+}
+  
+.navbar a {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 4px;
+}
+  
+.navbar a:hover {
+    color: grey;
+    transition: 0.2s;
+}
+
+/* Shortcut */
+
+.shortcut-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 70%;
+    margin: 0 auto 30px auto;
+  }
+  
+.shortcut-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    padding: 40px;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 10px;
+    text-decoration: none;
+    color: black;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+  
+.shortcut-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #e6e6e6;
+}
