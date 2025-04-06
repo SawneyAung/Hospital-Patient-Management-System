@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Doctor Dashboard</title>
+  <link rel="stylesheet" href="/styles/dashboard.css">
+  <style>
+    .appointments-list {
+      padding: 20px;
+    }
+
+    .appointment-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 16px;
+      margin-bottom: 15px;
+      background: #fff;
+    }
+
+    .appointment-info {
+      display: flex;
+      align-items: center;
+    }
+
+    .patient-image {
+      margin-right: 16px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .details {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .details strong {
+      font-size: 16px;
+    }
+
+    .details small {
+      color: gray;
+    }
+
+    .view-button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .view-button:hover {
+      background-color: #218838;
+    }
+
+    .bottom-nav {
+      text-align: center;
+      margin: 30px 0 10px;
+    }
+
+    .home-btn {
+      background-color: #6200ea;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .home-btn:hover {
+      background-color: #3700b3;
+    }
+  </style>
+</head>
+<body>
+
+  <section class="appointments-list">
+    <h2>Appointments</h2>
+
+    <div class="appointment-card">
+      <div class="appointment-info">
+        <div class="patient-image">Patient<br>Image</div>
+        <div class="details">
+          <strong>John Doe - 10:30 AM</strong>
+          <small>Dr. Audrey Lim · General Surgeon</small>
+        </div>
+      </div>
+      <button class="view-button">View</button>
+    </div>
+
+    <div class="appointment-card">
+      <div class="appointment-info">
+        <div class="patient-image">Patient<br>Image</div>
+        <div class="details">
+          <strong>Jane Smith - 11:00 AM</strong>
+          <small>Dr. Aaron Glassman · Nervous Surgeon</small>
+        </div>
+      </div>
+      <button class="view-button">View</button>
+    </div>
+
+    <div class="appointment-card">
+      <div class="appointment-info">
+        <div class="patient-image">Patient<br>Image</div>
+        <div class="details">
+          <strong>Emily Clark - 11:30 AM</strong>
+          <small>Dr. Marcus Andrew’s · Specialist</small>
+        </div>
+      </div>
+      <button class="view-button">View</button>
+    </div>
+
+    <div class="appointment-card">
+      <div class="appointment-info">
+        <div class="patient-image">Patient<br>Image</div>
+        <div class="details">
+          <strong>Michael Lee - 12:00 PM</strong>
+          <small>Dr. Mark Sloan · Ortho Resident</small>
+        </div>
+      </div>
+      <button class="view-button">View</button>
+    </div>
+  </section>
+
+  <footer class="bottom-nav">
+    <a href="/doctor-dashboard">
+      <button class="home-btn">Home</button>
+    </a>
+  </footer>
+
+</body>
+</html>
