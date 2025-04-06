@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Appointments</title>
+  <link rel="stylesheet" href="/styles/appointments.css">
+</head>
+<body>
+
+  <!-- Nav Bar -->
+  <nav class="navbar">
+    <a href="/admin/dashboard">Dashboard</a>
+    <a href="/admin/patient-records">Patient Records</a>
+    <a href="/admin/appointments">Appointments</a>
+    <a href="/admin/billings">Billings</a>
+    <a href="/login"><button>Logout</button></a>
+  </nav>
+
+  <!-- Add Appointment Form -->
+  <div class="login-container">
+    <h2>Add New Appointment</h2>
+    <form action="/admin/appointments" method="POST">
+      <input type="date" name="appointment_date" required />
+      <input type="time" name="appointment_time" required />
+      <input type="text" name="notes" placeholder="Notes" required />
+
+      <label>Select Patient:</label>
+      <select name="patient_id" required>
+        <% patients.forEach(p => { %>
+          <option value="<%= p.patient_id %>"><%= p.first_name %> <%= p.last_name %></option>
+        <% }) %>
+      </select>
+
+      <label>Select Doctor:</label>
+      <select name="doctor_id" required>
+        <% doctors.forEach(d => { %>
+          <option value="<%= d.doctor_id %>"><%= d.first_name %> <%= d.last_name %></option>
+        <% }) %>
+      </select>
+
+      <button type="submit">Add Appointment</button>
+    </form>
+  </div>
+
+  <!-- Appointment List -->
+  <div class="appointments-section">
+    <h3>Appointments</h3>
+
+    <div class="grid-2-cols">
+      <!-- Upcoming Appointments -->
+<div>
+    <h4>Upcoming</h4>
+    <% appointments.forEach(a => {
+      const now = new Date();
+  
+      const dateObj = new Date(a.appointment_date);
+      const yyyy = dateObj.getFullYear();
+      const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+      const dd = String(dateObj.getDate()).padStart(2, '0');
+      const dateString = `${yyyy}-${mm}-${dd}`;
+  
+      const apptDate = new Date(`${dateString}T${a.appointment_time.toString().slice(0,5)}`);
+  
+      if (apptDate >= now) {
+        const formattedDate = apptDate.toLocaleString('en-US', {
+          month: 'long',
+          day: 'numeric',
+          year: 'numeric',
+          hour: 'numeric',
+          minute: '2-digit',
+          hour12: true
+        });
+    %>
+      <div class="appointment-card">
+        <img src="https://via.placeholder.com/60" alt="Patient Image" />
+        <div class="appointment-details">
+          <div class="appointment-title">
+            <%= a.patient_first %> <%= a.patient_last %> - <%= formattedDate %>
+          </div>
+          <div class="appointment-desc">
+            <%= a.doctor_first %> <%= a.doctor_last %> &middot; <%= a.notes %>
+          </div>
+        </div>
+        <div class="appointment-actions">
+          <a href="/admin/appointments/<%= a.appointment_id %>">
+            <button>View</button>
+          </a>
+        </div>
+      </div>
+    <% } }) %>
+  </div>  
+
+    <!-- Past Appointments -->
+    <div>
+        <h4>Past</h4>
+        <% appointments.forEach(a => {
+        const now = new Date();
+    
+        const dateObj = new Date(a.appointment_date);
+        const yyyy = dateObj.getFullYear();
+        const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const dd = String(dateObj.getDate()).padStart(2, '0');
+        const dateString = `${yyyy}-${mm}-${dd}`;
+    
+        const apptDate = new Date(`${dateString}T${a.appointment_time.toString().slice(0,5)}`);
+    
+        if (apptDate < now) {
+            const formattedDate = apptDate.toLocaleString('en-US', {
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric',
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true
+            });
+        %>
+        <div class="appointment-card">
+            <img src="https://via.placeholder.com/60" alt="Patient Image" />
+            <div class="appointment-details">
+            <div class="appointment-title">
+                <%= a.patient_first %> <%= a.patient_last %> - <%= formattedDate %>
+            </div>
+            <div class="appointment-desc">
+                <%= a.doctor_first %> <%= a.doctor_last %> &middot; <%= a.notes %>
+            </div>
+            </div>
+            <div class="appointment-actions">
+            <a href="/admin/appointments/<%= a.appointment_id %>">
+                <button>View</button>
+            </a>
+            </div>
+        </div>
+        <% } }) %>
+    </div>
+  </div>
+
+</body>
+</html>

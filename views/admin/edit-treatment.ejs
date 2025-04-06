@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/admin/treatments/<%= treatment.treatment_id %>/edit" method="POST">
+        <h3>Edit Treatment</h3>
+        <input type="text" name="treatment_type" value="<%= treatment.treatment_type %>" required />
+        <textarea name="description" required><%= treatment.description %></textarea>
+        <label>
+          <input type="checkbox" name="completed" <%= treatment.completed ? 'checked' : '' %> />
+          Mark as Completed
+        </label>
+        <button type="submit">Update</button>
+      </form>      
+</body>
+</html>

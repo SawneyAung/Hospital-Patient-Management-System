@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Doctor's Patient Records</title>
+  <link rel="stylesheet" href="/styles/dashboard.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="/doctor/dashboard">Dashboard</a>
+    <a href="/doctor/patient-records">Patient Records</a>
+    <a href="/doctor/appointments">Appointments</a>
+    <a href="/login"><button>Logout</button></a>
+  </nav>
+
+  <div class="appointments-section">
+    <form method="GET" action="/doctor/patient-records" class="filter-form">
+        <input type="text" name="search" placeholder="Search by name..." value="<%= search || '' %>" />
+        
+        <select name="ageRange">
+          <option value="">All Ages</option>
+          <option value="under30" <%= ageRange === 'under30' ? 'selected' : '' %>>Under 30</option>
+          <option value="30to60" <%= ageRange === '30to60' ? 'selected' : '' %>>30–60</option>
+          <option value="above60" <%= ageRange === 'above60' ? 'selected' : '' %>>60+</option>
+        </select>
+      
+        <button type="submit">Filter</button>
+      
+        <a href="/doctor/patient-records" class="reset-link">
+          <button type="button">Reset</button>
+        </a>
+      </form>         
+
+    <h3>Your Patients</h3>
+    <% if (patients.length === 0) { %>
+      <p>You currently have no assigned patients.</p>
+    <% } else { %>
+      <% patients.forEach(p => { %>
+        <div class="appointment-card">
+          <img src="https://via.placeholder.com/60" alt="Patient" />
+          <div class="appointment-details">
+            <div class="appointment-title">
+              <%= p.first_name %> <%= p.last_name %> (Age: <%= p.age %>)
+            </div>
+            <div class="appointment-desc">
+              DOB: <%= p.date_of_birth.toISOString().split('T')[0] %><br>
+              Phone: <%= p.phone_number %>
+            </div>
+          </div>
+          <div class="appointment-actions">
+            <a href="/doctor/patients/<%= p.patient_id %>">
+              <button>View</button>
+            </a>
+          </div>
+        </div>
+      <% }) %>
+    <% } %>
+  </div>
+
+</body>
+</html>

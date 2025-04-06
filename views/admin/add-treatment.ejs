@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Treatment</title>
+  <link rel="stylesheet" href="/styles/edit-form.css">
+</head>
+<body>
+  <div class="edit-container">
+    <h2>Add Treatment</h2>
+    <form action="/admin/patients/<%= patientId %>/add-treatment" method="POST">
+      <input type="text" name="treatment_type" placeholder="Treatment Type" required />
+      <textarea name="description" placeholder="Description" required></textarea>
+
+      <label>Select Doctor</label>
+      <select name="doctor_id" required>
+        <% doctors.forEach(doc => { %>
+          <option value="<%= doc.doctor_id %>"><%= doc.first_name %> <%= doc.last_name %></option>
+        <% }) %>
+      </select>
+
+      <button type="submit">Add Treatment</button>
+    </form>
+  </div>
+</body>
+</html>

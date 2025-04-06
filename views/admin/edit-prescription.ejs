@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Prescription</title>
+  <link rel="stylesheet" href="/styles/edit-form.css">
+</head>
+<body>
+
+  <div class="edit-container">
+    <h2>Edit Prescription</h2>
+    <form action="/admin/prescriptions/<%= prescription.prescription_id %>/edit" method="POST">
+      <input type="text" name="medication_details" value="<%= prescription.medication_details %>" required />
+      <input type="text" name="dosage_instructions" value="<%= prescription.dosage_instructions %>" required />
+      <input type="number" step="0.01" name="bill_amount" value="<%= prescription.bill_amount %>" required />
+      <input type="date" name="payment_date" value="<%= prescription.payment_date ? prescription.payment_date.toISOString().split('T')[0] : '' %>" />
+      <input type="text" name="payment_status" value="<%= prescription.payment_status %>" required />
+      <button type="submit">Update</button>
+    </form>
+  </div>
+
+</body>
+</html>

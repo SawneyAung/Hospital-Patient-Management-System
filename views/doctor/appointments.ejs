@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Doctor - Appointments</title>
+  <link rel="stylesheet" href="/styles/appointments.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="/doctor/dashboard">Dashboard</a>
+    <a href="/doctor/patient-records">Patient Records</a>
+    <a href="/doctor/appointments">Appointments</a>
+    <a href="/login"><button>Logout</button></a>
+  </nav>
+
+  <div class="appointments-section">
+    <h3>Appointments</h3>
+
+    <div class="grid-2-cols">
+      <!-- Upcoming Appointments -->
+      <div>
+        <h4>Upcoming</h4>
+        <% appointments.forEach(a => {
+          const now = new Date();
+          const apptDate = new Date(a.appointment_date + 'T' + a.appointment_time);
+          if (apptDate >= now) {
+            const formatted = apptDate.toLocaleString('en-US', {
+              month: 'short',
+              day: 'numeric',
+              year: 'numeric',
+              hour: 'numeric',
+              minute: '2-digit',
+              hour12: true
+            });
+        %>
+            <div class="appointment-card">
+              <img src="https://via.placeholder.com/60" alt="Patient Image" />
+              <div class="appointment-details">
+                <div class="appointment-title">
+                  <%= a.patient_first %> <%= a.patient_last %> – <%= formatted %>
+                </div>
+                <div class="appointment-desc">
+                  <%= a.notes %>
+                </div>
+              </div>
+              <div class="appointment-actions">
+                <a href="/doctor/patients/<%= a.patient_id %>"><button>View</button></a>
+                <form method="POST" action="/doctor/appointments/<%= a.appointment_id %>/cancel" style="display:inline;">
+                  <button type="submit" onclick="return confirm('Are you sure you want to cancel this appointment?')">Cancel</button>
+                </form>
+              </div>
+            </div>
+        <% } }) %>
+      </div>
+
+      <!-- Past Appointments -->
+      <div>
+        <h4>Past</h4>
+        <% appointments.forEach(a => {
+          const now = new Date();
+          const apptDate = new Date(a.appointment_date + 'T' + a.appointment_time);
+          if (apptDate < now) {
+            const formatted = apptDate.toLocaleString('en-US', {
+              month: 'short',
+              day: 'numeric',
+              year: 'numeric',
+              hour: 'numeric',
+              minute: '2-digit',
+              hour12: true
+            });
+        %>
+            <div class="appointment-card">
+              <img src="https://via.placeholder.com/60" alt="Patient Image" />
+              <div class="appointment-details">
+                <div class="appointment-title">
+                  <%= a.patient_first %> <%= a.patient_last %> – <%= formatted %>
+                </div>
+                <div class="appointment-desc">
+                  <%= a.notes %>
+                </div>
+              </div>
+              <div class="appointment-actions">
+                <a href="/doctor/patients/<%= a.patient_id %>"><button>View</button></a>
+              </div>
+            </div>
+        <% } }) %>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

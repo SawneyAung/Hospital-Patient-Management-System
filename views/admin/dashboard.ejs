@@ -6,46 +6,74 @@
   <link rel="stylesheet" href="/styles/dashboard.css">
 </head>
 <body>
-    <!-- Nav Bar -->
-    <nav class="navbar">
-        <a href="/admin/dashboard">Dashboard</a>
-        <a href="/patient-records">Patient Records</a>
-        <a href="/appointments">Appointments</a>
-        <a href="/billings">Billings</a>
-        <a href="/login"><button>Logout</button></a>
-    </nav>
 
-    <!-- Short cut -->
-    <section class="shortcut-grid">
-        <a href="/patient-records" class="shortcut-btn">Patient Records</a>
-        <a href="/appointments" class="shortcut-btn">Appointments</a>
-        <a href="/billings" class="shortcut-btn">Billings</a>
-        <a href="#" class="shortcut-btn">Register Patient</a>
-    </section>
+  <!-- Nav Bar -->
+  <nav class="navbar">
+    <a href="/admin/dashboard">Dashboard</a>
+    <a href="/admin/patient-records">Patient Records</a>
+    <a href="/admin/appointments">Appointments</a>
+    <a href="/admin/billings">Billings</a>
+    <a href="/login"><button>Logout</button></a>
+  </nav>
 
-    <!-- Upcoming Appointments -->
-    <div class="appointments-section">
-        <h3>Upcoming Appointments</h3>
-      
-        <% appointments.forEach(appointment => { %>
-            <div class="appointment-card">
-                <img src="<%= appointment.imageUrl %>" alt="Patient Image" />
-                <div class="appointment-details">
-                    <div class="appointment-title">
-                        <%= appointment.patientName %> - <%= appointment.time %>
-                    </div>
-                    <div class="appointment-desc">
-                        <%= appointment.doctorName %> &middot; <%= appointment.reason %>
-                    </div>
-                </div>
-                <div class="appointment-actions">
-                    <a href="/admin/appointments/<%= appointment.id %>">
-                        <button>View</button>
-                    </a> 
-                </div>
-            </div>
-        <% }) %>
+  <!-- Stats Section -->
+  <div class="stats-section">
+    <div class="stat-card">
+      <h3>Total Patients</h3>
+      <p><%= totalPatients %></p>
     </div>
-      
+    <div class="stat-card">
+      <h3>Appointments Today</h3>
+      <p><%= appointmentsToday %></p>
+    </div>
+  </div>
+
+  <!-- Shortcuts (unchanged) -->
+  <section class="shortcut-grid">
+    <a href="/admin/patient-records" class="shortcut-btn">Patient Records</a>
+    <a href="/admin/appointments" class="shortcut-btn">Appointments</a>
+    <a href="/admin/billings" class="shortcut-btn">Billings</a>
+    <a href="#" class="shortcut-btn">Register Patient</a>
+  </section>
+
+  <!-- Upcoming Appointments -->
+  <div class="appointments-section">
+    <h3>Upcoming Appointments</h3>
+
+    <% upcomingAppointments.forEach(a => {
+      const dateObj = new Date(a.appointment_date);
+      const yyyy = dateObj.getFullYear();
+      const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+      const dd = String(dateObj.getDate()).padStart(2, '0');
+      const dateStr = `${yyyy}-${mm}-${dd}`;
+      const apptDate = new Date(`${dateStr}T${a.appointment_time.toString().slice(0,5)}`);
+      const formattedDate = apptDate.toLocaleString('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+      });
+    %>
+      <div class="appointment-card">
+        <img src="https://via.placeholder.com/60" alt="Patient Image" />
+        <div class="appointment-details">
+          <div class="appointment-title">
+            <%= a.patient_first %> <%= a.patient_last %> - <%= formattedDate %>
+          </div>
+          <div class="appointment-desc">
+            <%= a.doctor_first %> <%= a.doctor_last %> &middot; <%= a.notes %>
+          </div>
+        </div>
+        <div class="appointment-actions">
+          <a href="/admin/appointments/<%= a.appointment_id %>">
+            <button>View</button>
+          </a>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+
 </body>
 </html>

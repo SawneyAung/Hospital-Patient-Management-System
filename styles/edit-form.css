@@ -1,0 +1,74 @@
+/* Nav Bar */
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+}
+
+.navbar a {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 4px;
+}
+
+.navbar a:hover {
+  color: grey;
+  transition: 0.2s;
+}
+
+.edit-container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    font-family: sans-serif;
+  }
+  
+  .edit-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 1.5em;
+    text-align: center;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  form input[type="text"],
+  form input[type="date"],
+  form input[type="number"],
+  form input[type="email"],
+  form input[type="time"],
+  form textarea {
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 100%;
+  }
+  
+  form button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    width: fit-content;
+    transition: background-color 0.2s;
+  }
+  
+  form button:hover {
+    background-color: #388e3c;
+  }
+  

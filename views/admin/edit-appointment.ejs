@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Appointment</title>
+  <link rel="stylesheet" href="/styles/edit-form.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="/admin/dashboard">Dashboard</a>
+    <a href="/admin/patient-records">Patient Records</a>
+    <a href="/admin/appointments">Appointments</a>
+    <a href="/admin/billings">Billings</a>
+    <a href="/login"><button>Logout</button></a>
+  </nav>
+
+  <!-- Edit Form -->
+  <div class="edit-container">
+    <h2>Edit Appointment</h2>
+    <form action="/admin/appointments/<%= appointment.appointment_id %>/edit" method="POST">
+      <label>Date:</label>
+      <input type="date" name="appointment_date" value="<%= appointment.appointment_date.toISOString().split('T')[0] %>" required />
+
+      <label>Time:</label>
+      <input type="time" name="appointment_time" value="<%= appointment.appointment_time.toString().slice(0,5) %>" required />
+
+      <label>Notes:</label>
+      <input type="text" name="notes" value="<%= appointment.notes %>" required />
+
+      <label>Select Patient:</label>
+      <select name="patient_id" required>
+        <% patients.forEach(p => { %>
+          <option value="<%= p.patient_id %>" <%= p.patient_id === appointment.patient_id ? 'selected' : '' %>>
+            <%= p.first_name %> <%= p.last_name %>
+          </option>
+        <% }) %>
+      </select>
+
+      <label>Select Doctor:</label>
+      <select name="doctor_id" required>
+        <% doctors.forEach(d => { %>
+          <option value="<%= d.doctor_id %>" <%= d.doctor_id === appointment.doctor_id ? 'selected' : '' %>>
+            <%= d.first_name %> <%= d.last_name %>
+          </option>
+        <% }) %>
+      </select>
+
+      <button type="submit">Update Appointment</button>
+    </form>
+    <div style="margin-top: 20px;">
+      <a href="/admin/appointments/<%= appointment.appointment_id %>"><button>⬅ Back</button></a>
+    </div>
+  </div>
+
+</body>
+</html>

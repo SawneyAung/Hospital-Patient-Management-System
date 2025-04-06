@@ -1,0 +1,112 @@
+@import url('/styles/dashboard.css'); /* Keep navbar consistent */
+
+body {
+  font-family: sans-serif;
+  background-color: #f5f7fa;
+  margin: 0;
+  padding: 0;
+}
+
+.billing-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.billing-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+  color: #555;
+}
+
+tr:hover {
+  background-color: #f9f9f9;
+}
+
+td:nth-child(3) {
+  font-weight: bold;
+}
+
+td:nth-child(4) {
+  text-transform: capitalize;
+}
+
+td:nth-child(5) {
+  font-family: monospace;
+}
+
+/* Action Buttons */
+.billing-container .actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .billing-container a button,
+  .billing-container form button {
+    padding: 8px 14px;
+    font-weight: bold;
+    font-size: 14px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .billing-container a button {
+    background-color: #2196F3;
+    color: white;
+  }
+  
+  .billing-container a button:hover {
+    background-color: #1976D2;
+  }
+  
+  .billing-container form button {
+    background-color: #F44336;
+    color: white;
+  }
+  
+  .billing-container form button:hover {
+    background-color: #D32F2F;
+  }
+
+  form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  form label {
+    font-weight: bold;
+    color: #444;
+  }
+  
+  form select {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+  }
+  

@@ -1,0 +1,108 @@
+/* Reuse navbar styles */
+@import url('/styles/dashboard.css');
+
+/* Page container */
+.appointments-page {
+  width: 80%;
+  margin: 30px auto;
+}
+
+/* Appointment form styling */
+.login-container {
+  background: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.login-container h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.login-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.login-container input,
+.login-container select {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.login-container button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.login-container button:hover {
+  background-color: #388e3c;
+}
+
+/* Appointment List Styling */
+.appointments-section h3 {
+  font-size: 1.3em;
+  margin-bottom: 15px;
+  color: #444;
+}
+
+.grid-2-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* Card style */
+.appointment-card {
+  background: #f9f9f9;
+  padding: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.appointment-card img {
+  width: 60px;
+  height: 60px;
+  margin-right: 15px;
+  border-radius: 6px;
+}
+
+.appointment-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.appointment-desc {
+  font-size: 14px;
+  color: #666;
+}
+
+.appointment-actions {
+  margin-left: auto;
+}
+
+.appointment-actions button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.appointment-actions button:hover {
+  background-color: #388e3c;
+}

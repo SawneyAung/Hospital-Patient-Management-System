@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= patient.first_name %> <%= patient.last_name %> - Details</title>
+  <link rel="stylesheet" href="/styles/patient-details.css">
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="/admin/dashboard">Dashboard</a>
+    <a href="/admin/patient-records">Patient Records</a>
+    <a href="/appointments">Appointments</a>
+    <a href="/billings">Billings</a>
+    <a href="/login"><button>Logout</button></a>
+  </nav>
+
+  <div class="container">
+
+    <!-- Section 1: Patient Info -->
+    <div class="card-section">
+      <h2>Patient Info</h2>
+      <p><strong>Name:</strong> <%= patient.first_name %> <%= patient.last_name %></p>
+      <p><strong>Age:</strong> <%= patient.age %></p>
+      <p><strong>Date of Birth:</strong> <%= patient.date_of_birth.toISOString().split('T')[0] %></p>
+      <p><strong>Phone:</strong> <%= patient.phone_number %></p>
+      <p><strong>Email:</strong> <%= patient.email %></p>
+    </div>
+
+
+    <!-- Section 2: Treatments & Prescriptions -->
+
+    
+    <div class="card-section">
+      <h2>Treatments & Prescriptions</h2>
+      <div class="grid-2-cols">
+        <!-- Active -->
+        <div>
+          <h4>Active</h4>
+          <% treatments.forEach(t => { if (!t.completed) { %>
+            <div class="entry-card">
+              <strong>Treatment:</strong> <%= t.treatment_type %><br>
+              <%= t.description %>
+              <div class="entry-actions">
+                <a href="/admin/treatments/<%= t.treatment_id %>/edit"><button>Edit</button></a>
+                <form action="/admin/treatments/<%= t.treatment_id %>/delete" method="POST">
+                  <button type="submit">Delete</button>
+                </form>
+              </div>
+            </div>
+          <% } }) %>
+          <% prescriptions.forEach(p => { if (!p.payment_date) { %>
+            <div class="entry-card">
+              <strong>Prescription:</strong> <%= p.medication_details %><br>
+              <%= p.dosage_instructions %> • $<%= p.bill_amount %> (<%= p.payment_status %>)
+              <div class="entry-actions">
+                <a href="/admin/prescriptions/<%= p.prescription_id %>/edit"><button>Edit</button></a>
+                <form action="/admin/prescriptions/<%= p.prescription_id %>/delete" method="POST">
+                  <button type="submit">Delete</button>
+                </form>
+              </div>
+            </div>
+          <% } }) %>
+        </div>
+
+        <!-- Past -->
+        <div>
+          <h4>Past</h4>
+          <% treatments.forEach(t => { if (t.completed) { %>
+            <div class="entry-card">
+              <strong>Treatment:</strong> <%= t.treatment_type %><br>
+              <%= t.description %>
+            </div>
+          <% } }) %>
+          <% prescriptions.forEach(p => { if (p.payment_date) { %>
+            <div class="entry-card">
+              <strong>Prescription:</strong> <%= p.medication_details %><br>
+              <%= p.dosage_instructions %><br>
+              Paid $<%= p.bill_amount %> on <%= p.payment_date.toISOString().split('T')[0] %>
+            </div>
+          <% } }) %>
+        </div>
+      </div>
+      <div class="entry-actions" style="margin-bottom: 15px;">
+        <a href="/admin/patients/<%= patient.patient_id %>/add-treatment">
+          <button> Add Treatment</button>
+        </a>
+      </div>
+      <div class="entry-actions" style="margin-bottom: 15px;">
+        <a href="/admin/patients/<%= patient.patient_id %>/add-prescription">
+          <button> Add Prescription</button>
+        </a>
+      </div>      
+    </div>
+    
+
+    <!-- Section 3: Appointments -->
+    <div class="card-section">
+      <h2>Appointments</h2>
+      <div class="grid-2-cols">
+        <!-- Upcoming -->
+        <div>
+            <h4>Upcoming</h4>
+            <% appointments.forEach(a => {
+              const dateObj = new Date(a.appointment_date);
+              const yyyy = dateObj.getFullYear();
+              const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+              const dd = String(dateObj.getDate()).padStart(2, '0');
+              const dateString = `${yyyy}-${mm}-${dd}`;
+          
+              const apptDate = new Date(`${dateString}T${a.appointment_time.toString().slice(0,5)}`);
+          
+              if (apptDate >= new Date()) {
+                const formatted = apptDate.toLocaleString('en-US', {
+                  month: 'long',
+                  day: 'numeric',
+                  year: 'numeric',
+                  hour: 'numeric',
+                  minute: '2-digit',
+                  hour12: true
+                });
+            %>
+              <div class="entry-card">
+                <strong><%= formatted %></strong><br>
+                <%= a.doctor_first %> <%= a.doctor_last %><br>
+                <em><%= a.notes %></em>
+              </div>
+            <% } }) %>
+          </div>
+          
+
+        <!-- Past -->
+        <div>
+            <h4>Past</h4>
+            <% appointments.forEach(a => {
+              const dateObj = new Date(a.appointment_date);
+              const yyyy = dateObj.getFullYear();
+              const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+              const dd = String(dateObj.getDate()).padStart(2, '0');
+              const dateString = `${yyyy}-${mm}-${dd}`;
+          
+              const apptDate = new Date(`${dateString}T${a.appointment_time.toString().slice(0,5)}`);
+          
+              if (apptDate < new Date()) {
+                const formatted = apptDate.toLocaleString('en-US', {
+                  month: 'long',
+                  day: 'numeric',
+                  year: 'numeric',
+                  hour: 'numeric',
+                  minute: '2-digit',
+                  hour12: true
+                });
+            %>
+              <div class="entry-card">
+                <strong><%= formatted %></strong><br>
+                <%= a.doctor_first %> <%= a.doctor_last %><br>
+                <em><%= a.notes %></em>
+              </div>
+            <% } }) %>
+          </div>
+          
+      </div>
+    </div>
+
+    <div class="back-button">
+        <a href="/admin/patient-records">
+          <button>⬅️ Back to Patient List</button>
+        </a>
+    </div>
+  </div>
+
+</body>
+</html>

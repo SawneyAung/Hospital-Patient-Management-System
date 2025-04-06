@@ -7,16 +7,67 @@
 </head>
 <body>
     <nav class="navbar">
-        <a href="/doctor-dashboard">Dashboard</a>
-        <a href="/patient-records">Patient Records</a>
-        <a href="/appointments">Appointments</a>
+        <a href="/doctor/dashboard">Dashboard</a>
+        <a href="/doctor/patient-records">Patient Records</a>
+        <a href="/doctor/appointments">Appointments</a>
         <a href="/login"><button>Logout</button></a>
     </nav>
 
     <section class="shortcut-grid">
-        <a href="/patient-records" class="shortcut-btn">Patient Records</a>
-        <a href="/appointments" class="shortcut-btn">Appointments</a>
+        <a href="/doctor/patient-records" class="shortcut-btn">Patient Records</a>
+        <a href="/doctor/appointments" class="shortcut-btn">Appointments</a>
     </section>
+
+    <section class="appointments-section">
+        <h3>Today's Appointments</h3>
+      
+        <% if (appointments.length === 0) { %>
+          <p>No appointments scheduled for today.</p>
+        <% } else { %>
+          <% appointments.forEach(a => { %>
+            <div class="appointment-card">
+              <img src="https://via.placeholder.com/60" alt="Patient Image" />
+              <div class="appointment-details">
+                <div class="appointment-title">
+                  <%= a.patient_first %> <%= a.patient_last %> - <%= a.appointment_time.toString().slice(0, 5) %>
+                </div>
+                <div class="appointment-desc">
+                  <%= a.notes %>
+                </div>
+              </div>
+              <div class="appointment-actions">
+                <a href="/doctor/patients/<%= a.patient_id %>"><button>View</button></a>
+              </div>
+            </div>
+          <% }) %>
+        <% } %>
+    </section>      
+
+    <section class="appointments-section">
+        <h3>Active Treatments</h3>
+      
+        <% if (treatments.length === 0) { %>
+          <p>No active treatments at the moment.</p>
+        <% } else { %>
+          <% treatments.forEach(t => { %>
+            <div class="appointment-card">
+              <div class="appointment-details">
+                <div class="appointment-title">
+                  <%= t.patient_first %> <%= t.patient_last %> – <%= t.treatment_type %>
+                </div>
+                <div class="appointment-desc">
+                  <%= t.description %>
+                </div>
+              </div>
+              <div class="appointment-actions">
+                <a href="/doctor/patients/<%= t.patient_id %>">
+                  <button>View Patient</button>
+                </a>
+              </div>
+            </div>
+          <% }) %>
+        <% } %>
+      </section>      
 
 </body>
 </html>

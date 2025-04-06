@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= patient.first_name %> <%= patient.last_name %> - Profile</title>
+  <link rel="stylesheet" href="/styles/patient-details.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="/doctor/dashboard">Dashboard</a>
+    <a href="/doctor/patient-records">Patient Records</a>
+    <a href="/doctor/appointments">Appointments</a>
+    <a href="/login"><button>Logout</button></a>
+  </nav>
+
+  <div class="container">
+
+    <!-- Patient Info -->
+    <div class="card-section">
+      <h2>Patient Information</h2>
+      <p><strong>Name:</strong> <%= patient.first_name %> <%= patient.last_name %></p>
+      <p><strong>Age:</strong> <%= patient.age %></p>
+      <p><strong>DOB:</strong> <%= patient.date_of_birth.toISOString().split('T')[0] %></p>
+      <p><strong>Phone:</strong> <%= patient.phone_number %></p>
+      <p><strong>Email:</strong> <%= patient.email %></p>
+    </div>
+
+    <!-- Treatments -->
+    <div class="card-section">
+      <h2>Treatments</h2>
+      <div class="grid-2-cols">
+        <div>
+          <h4>Active</h4>
+          <% treatments.forEach(t => { if (!t.completed) { %>
+            <div class="entry-card">
+              <strong><%= t.treatment_type %></strong><br>
+              <%= t.description %>
+            </div>
+          <% } }) %>
+        </div>
+        <div>
+          <h4>Past</h4>
+          <% treatments.forEach(t => { if (t.completed) { %>
+            <div class="entry-card">
+              <strong><%= t.treatment_type %></strong><br>
+              <%= t.description %>
+            </div>
+          <% } }) %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Prescriptions -->
+    <div class="card-section">
+      <h2>Prescriptions</h2>
+      <div class="grid-2-cols">
+        <div>
+          <h4>Active</h4>
+          <% prescriptions.forEach(p => { if (!p.payment_date) { %>
+            <div class="entry-card">
+              <strong><%= p.medication_details %></strong><br>
+              <%= p.dosage_instructions %><br>
+              $<%= p.bill_amount %> - <%= p.payment_status %>
+            </div>
+          <% } }) %>
+        </div>
+        <div>
+          <h4>Paid</h4>
+          <% prescriptions.forEach(p => { if (p.payment_date) { %>
+            <div class="entry-card">
+              <strong><%= p.medication_details %></strong><br>
+              <%= p.dosage_instructions %><br>
+              Paid $<%= p.bill_amount %> on <%= p.payment_date.toISOString().split('T')[0] %>
+            </div>
+          <% } }) %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Appointments -->
+    <div class="card-section">
+      <h2>Appointments</h2>
+      <div class="grid-2-cols">
+        <div>
+          <h4>Upcoming</h4>
+          <% appointments.forEach(a => {
+            const apptDate = new Date(a.appointment_date + 'T' + a.appointment_time);
+            if (apptDate >= new Date()) { %>
+            <div class="entry-card">
+              <strong><%= a.appointment_date.toISOString().split('T')[0] %> @ <%= a.appointment_time %></strong><br>
+              <%= a.notes %>
+            </div>
+          <% } }) %>
+        </div>
+        <div>
+          <h4>Past</h4>
+          <% appointments.forEach(a => {
+            const apptDate = new Date(a.appointment_date + 'T' + a.appointment_time);
+            if (apptDate < new Date()) { %>
+            <div class="entry-card">
+              <strong><%= a.appointment_date.toISOString().split('T')[0] %> @ <%= a.appointment_time %></strong><br>
+              <%= a.notes %>
+            </div>
+          <% } }) %>
+        </div>
+      </div>
+    </div>
+
+    <div class="back-button">
+      <a href="/doctor/patient-records">
+        <button>⬅ Back to Patient List</button>
+      </a>
+    </div>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Patient</title>
+  <link rel="stylesheet" href="/styles/edit-form.css">
+</head>
+<body>
+
+  <div class="edit-container">
+    <h2>Edit Patient Info</h2>
+    <form action="/admin/patients/<%= patient.patient_id %>/edit" method="POST">
+      <input type="text" name="first_name" value="<%= patient.first_name %>" required />
+      <input type="text" name="last_name" value="<%= patient.last_name %>" required />
+      <input type="number" name="age" value="<%= patient.age %>" required />
+      <input type="date" name="date_of_birth" value="<%= patient.date_of_birth.toISOString().split('T')[0] %>" required />
+      <input type="text" name="phone_number" value="<%= patient.phone_number %>" required />
+      <input type="email" name="email" value="<%= patient.email %>" required />
+      <button type="submit">Update</button>
+    </form>
+  </div>
+
+</body>
+</html>

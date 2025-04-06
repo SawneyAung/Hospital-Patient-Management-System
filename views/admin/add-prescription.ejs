@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Prescription</title>
+  <link rel="stylesheet" href="/styles/edit-form.css">
+</head>
+<body>
+
+  <div class="edit-container">
+    <h2>Add Prescription</h2>
+    <form action="/admin/patients/<%= patientId %>/add-prescription" method="POST">
+      <input type="text" name="medication_details" placeholder="Medication Details" required />
+      <input type="text" name="dosage_instructions" placeholder="Dosage Instructions" required />
+      <input type="number" step="0.01" name="bill_amount" placeholder="Bill Amount" required />
+
+      <label>Select Doctor</label>
+      <select name="doctor_id" required>
+        <% doctors.forEach(doc => { %>
+          <option value="<%= doc.doctor_id %>"><%= doc.first_name %> <%= doc.last_name %></option>
+        <% }) %>
+      </select>
+
+      <label>Select Appointment</label>
+      <select name="appointment_id" required>
+        <% appointments.forEach(appt => { %>
+          <option value="<%= appt.appointment_id %>">
+            <%= appt.appointment_date.toISOString().split('T')[0] %> @ <%= appt.appointment_time %>
+          </option>
+        <% }) %>
+      </select>
+
+      <button type="submit">Add Prescription</button>
+    </form>
+  </div>
+
+</body>
+</html>

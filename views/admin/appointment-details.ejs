@@ -3,19 +3,112 @@
 <head>
   <meta charset="UTF-8">
   <title>Appointment Details</title>
-  <link rel="stylesheet" href="/styles/style.css">
+  <link rel="stylesheet" href="/styles/appointment-details.css">
 </head>
 <body>
-  <div class="login-container">
-    <h2>Appointment Details</h2>
-    <img src="<%= appointment.imageUrl %>" alt="Patient Image" style="border-radius: 50%; width: 80px; height: 80px; margin-bottom: 15px;"/>
-    
-    <p><strong>Patient:</strong> <%= appointment.patientName %></p>
-    <p><strong>Time:</strong> <%= appointment.time %></p>
-    <p><strong>Doctor:</strong> <%= appointment.doctorName %></p>
-    <p><strong>Reason:</strong> <%= appointment.reason %></p>
 
-    <a href="/admin/dashboard"><button>Back</button></a>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="/admin/dashboard">Dashboard</a>
+    <a href="/admin/patient-records">Patient Records</a>
+    <a href="/admin/appointments">Appointments</a>
+    <a href="/admin/billings">Billings</a>
+    <a href="/login"><button>Logout</button></a>
+  </nav>
+
+  <div class="appointment-container">
+    <h2>Appointment Details</h2>
+
+    <!-- Buttons -->
+    <div class="entry-actions">
+      <a href="/admin/appointments/<%= appointment.appointment_id %>/edit"><button>Edit Appointment</button></a>
+      <form action="/admin/appointments/<%= appointment.appointment_id %>/delete" method="POST" style="display:inline;">
+        <button type="submit">Cancel Appointment</button>
+      </form>
+      <a href="/admin/patients/<%= appointment.patient_id %>">
+        <button>View Patient Profile</button>
+      </a>
+    </div>
+
+    <!-- Patient Info -->
+    <div class="detail-card">
+      <h3>Patient</h3>
+      <p><strong>Name:</strong> <%= appointment.patient_first %> <%= appointment.patient_last %></p>
+      <p><strong>Phone:</strong> <%= appointment.patient_phone %></p>
+      <p><strong>Email:</strong> <%= appointment.patient_email %></p>
+    </div>
+
+    <!-- Doctor Info -->
+    <div class="detail-card">
+      <h3>Doctor</h3>
+      <p><strong>Name:</strong> <%= appointment.doctor_first %> <%= appointment.doctor_last %></p>
+      <p><strong>Specialty:</strong> <%= appointment.specialty %></p>
+    </div>
+
+    <!-- Appointment Info -->
+    <div class="detail-card">
+      <h3>Appointment Info</h3>
+      <%
+        const dateObj = new Date(appointment.appointment_date);
+        const yyyy = dateObj.getFullYear();
+        const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const dd = String(dateObj.getDate()).padStart(2, '0');
+        const formattedTime = appointment.appointment_time.toString().slice(0, 5);
+        const dateTime = new Date(`${yyyy}-${mm}-${dd}T${formattedTime}`);
+        const formatted = dateTime.toLocaleString('en-US', {
+          month: 'long',
+          day: 'numeric',
+          year: 'numeric',
+          hour: 'numeric',
+          minute: '2-digit',
+          hour12: true
+        });
+      %>
+      <p><strong>Date & Time:</strong> <%= formatted %></p>
+      <p><strong>Notes:</strong> <%= appointment.notes %></p>
+    </div>
+
+    <!-- Treatments -->
+    <div class="detail-card">
+      <h3>Treatments</h3>
+      <% if (treatments.length === 0) { %>
+        <p>No treatments for this appointment.</p>
+      <% } else { %>
+        <% treatments.forEach(t => { %>
+          <div class="entry-card">
+            <strong><%= t.treatment_type %></strong><br>
+            <%= t.description %>
+          </div>
+        <% }) %>
+      <% } %>
+    </div>
+
+    <!-- Prescriptions -->
+    <div class="detail-card">
+      <h3>Prescriptions</h3>
+      <% if (prescriptions.length === 0) { %>
+        <p>No prescriptions for this appointment.</p>
+      <% } else { %>
+        <% prescriptions.forEach(p => { %>
+          <div class="entry-card">
+            <strong><%= p.medication_details %></strong><br>
+            <%= p.dosage_instructions %><br>
+            $<%= p.bill_amount %> - <%= p.payment_status %>
+          </div>
+        <% }) %>
+      <% } %>
+    </div>
+
+    <div class="back-button">
+      <a href="/admin/appointments"><button>⬅ Back to Appointments</button></a>
+    </div>
   </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('updated') === 'success') {
+      alert('✅ Appointment updated successfully!');
+    }
+  </script>  
 </body>
 </html>
