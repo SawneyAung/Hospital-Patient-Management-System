@@ -35,7 +35,15 @@ const appointments = [
     doctorName: 'Dr. Young',
     reason: 'Consultation',
     imageUrl: 'https://via.placeholder.com/60'
-  }
+  },
+  {
+    id: 4,
+    patientName: 'Michael Reeves',
+    time: '12:30 PM',
+    doctorName: 'Dr. Cooper',
+    reason: 'Consultation',
+    imageUrl: 'https://via.placeholder.com/60'
+  },
 ];
 
 // Helper to simulate DB fetch
